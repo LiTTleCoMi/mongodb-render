@@ -1,0 +1,29 @@
+{
+	"name": "mongodb-render",
+	"version": "1.0.0",
+	"description": "",
+	"homepage": "https://github.com/LiTTleCoMi/mongodb-render#readme",
+	"bugs": {
+		"url": "https://github.com/LiTTleCoMi/mongodb-render/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/LiTTleCoMi/mongodb-render.git"
+	},
+	"license": "ISC",
+	"author": "",
+	"type": "commonjs",
+	"main": "index.js",
+	"scripts": {
+		"dev": "vercel dev",
+		"start": "node server.js",
+		"deploy": "vercel --prod"
+	},
+	"dependencies": {
+		"mongodb": "^4.13.0"
+	},
+	"devDependencies": {
+		"@vercel/node": "^2.8.4",
+		"vercel": "^28.16.11"
+	}
+}

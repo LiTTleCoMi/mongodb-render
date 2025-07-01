@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MongoDB on Vercel</title>
+  <style>
+    /* Your existing styles */
+  </style>
+</head>
+<body>
+  <h1>Movie Comments on Vercel</h1>
+  <p>Showing all comments by: <strong>Mercedes Tyler</strong></p>
+  <div id="loading">Loading comments...</div>
+  <div id="results"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const response = await fetch('/api/comments');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const comments = await response.json();
+        
+        const resultsDiv = document.getElementById('results');
+        const loadingDiv = document.getElementById('loading');
+        
+        loadingDiv.style.display = 'none';
+        
+        if (comments.length === 0) {
+          resultsDiv.innerHTML = '<p>No comments found</p>';
+          return;
+        }
+        
+        resultsDiv.innerHTML = comments.map(comment => `
+          <div class="comment">
+            <p>${comment.text}</p>
+            <div class="comment-meta">
+              Posted on ${new Date(comment.date).toLocaleDateString()}
+              ${comment.email ? `by ${comment.email}` : ''}
+            </div>
+          </div>
+        `).join('');
+      } catch (error) {
+        console.error('Fetch error:', error);
+        document.getElementById('loading').textContent = 
+          `Error loading comments: ${error.message}`;
+        document.getElementById('loading').className = 'error';
+      }
+    });
+  </script>
+</body>
+</html>
